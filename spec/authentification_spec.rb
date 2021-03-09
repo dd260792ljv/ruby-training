@@ -1,41 +1,49 @@
 feature 'Authentication user', js: true do
 
-  user_name = 'test' + Time.now.to_i.to_s
+  random = Time.now.to_i.to_s
+  user_name = 'test' + random
   password = 'test1234'
   credentials = {user_name: user_name, password: password}
-  File.open('./spec/data/credentials.txt', 'w') { |file| file.write(credentials.to_json) }
+  File.open('./spec/data/credentials.json', 'w') { |file| file.write(credentials.to_json) }
 
-  after(:all) { File.delete('./spec/data/credentials.txt') }
+  before(:each) do
+    @home_page = HomePage.new
+    @home_page.load
+  end
+
+  after(:all) { File.delete('./spec/data/credentials.json') }
 
   scenario 'User can register' do
-    visit('http://testautomate.me/redmine')
-    expect(page).to have_content('Redmine@testautomate.me')
+    expect(@home_page.header.text).to include 'Redmine@testautomate.me'
 
-    find('.register').click
+    @home_page.menu.sigh_up_link.click
 
-    find('#user_login').set user_name
-    find('#user_password').set password
-    find('#user_password_confirmation').set password
-    find('#user_firstname').set 'Test'
-    find('#user_lastname').set 'User'
-    find('#user_mail').set "#{user_name}@test.org"
-    find('#new_user > input[type=submit]:nth-child(4)').click
+    @sign_up_page = SignUpPage.new
 
-    expect(page).to have_content "Logged in as #{user_name}"
+    @sign_up_page.login.set user_name
+    @sign_up_page.password.set password
+    @sign_up_page.password_confirm.set password
+    @sign_up_page.firstname.set 'Test'
+    @sign_up_page.lastname.set 'User'
+    @sign_up_page.email.set "#{user_name}@test.org"
+    @sign_up_page.submit_btn.click
+
+    expect(@home_page.menu.logged_as.text).to include "Logged in as #{user_name}"
   end
 
   scenario 'User can log in' do
-    credentials = JSON.parse(File.read('./spec/data/credentials.txt'))
+    credentials = JSON.parse(File.read('./spec/data/credentials.json'))
 
-    visit('http://testautomate.me/redmine')
-    expect(page).to have_content('Redmine@testautomate.me')
+    expect(@home_page.header.text).to include 'Redmine@testautomate.me'
 
-    find('.login').click
+    @home_page.menu.sigh_in_link.click
 
-    find('#username').set credentials['user_name']
-    find('#password').set credentials['password']
-    find('#login-submit').click
+    @sign_in_page = SignInPage.new
 
-    expect(page).to have_content "Logged in as #{user_name}"
+    @sign_in_page.username.set credentials['user_name']
+    @sign_in_page.password.set credentials['password']
+    @sign_in_page.login_btn.click
+
+    expect(@home_page.menu.logged_as.text).to include "Logged in as #{user_name}"
   end
 end
