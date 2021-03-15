@@ -1,9 +1,10 @@
-feature 'Authentication user', js: true do
+# frozen_string_literal: true
 
+feature 'Authentication user', js: true do
   random = Time.now.to_i.to_s
-  user_name = 'test' + random
+  user_name = "test#{random}"
   password = 'test1234'
-  credentials = {user_name: user_name, password: password}
+  credentials = { user_name: user_name, password: password }
   File.open('./spec/data/credentials.json', 'w') { |file| file.write(credentials.to_json) }
 
   before(:each) do
