@@ -2,10 +2,18 @@ detectors:
   UtilityFunction:
     exclude:
       - 'options'
+      - 'User'
   IrresponsibleModule:
     exclude:
       - 'HomePage'
       - 'SignInPage'
       - 'SignUpPage'
       - 'MenuSection'
+      - 'User'
+  TooManyInstanceVariables:
+    exclude:
+      - 'User'
+  UncommunicativeVariableName:
+    exclude:
+      - 'User'
 
