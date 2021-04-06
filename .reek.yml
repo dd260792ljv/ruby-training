@@ -10,10 +10,17 @@ detectors:
       - 'SignUpPage'
       - 'MenuSection'
       - 'User'
+      - 'FeatureHelper'
+      - 'MyPage'
   TooManyInstanceVariables:
     exclude:
       - 'User'
   UncommunicativeVariableName:
     exclude:
       - 'User'
+  TooManyStatements:
+    max_statements: 10
+  DuplicateMethodCall:
+    exclude:
+      - 'sign_up_user'
 

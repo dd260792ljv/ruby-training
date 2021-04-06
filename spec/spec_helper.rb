@@ -4,11 +4,13 @@ require 'capybara/rspec'
 require 'require_all'
 require 'selenium-webdriver'
 require 'site_prism'
-require 'pry'
 
-require_all 'lib'
 require_all 'page_objects/sections'
 require_all 'page_objects/pages'
+require_all 'models'
+require_all 'spec/support'
+
+include FeatureHelper
 
 RSpec.configure do
   def options
