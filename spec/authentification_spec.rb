@@ -2,7 +2,7 @@
 
 feature 'Authentication user', js: true do
   before(:all) do
-    @file = './spec/data/credentials.yaml'
+    @file = './spec/test_data/credentials.yaml'
     @user = User.new
     @user.save_to_file(@file)
   end
@@ -19,15 +19,7 @@ feature 'Authentication user', js: true do
 
     @home_page.menu.sigh_up_link.click
 
-    @sign_up_page = SignUpPage.new
-
-    @sign_up_page.login.set @user.user_name
-    @sign_up_page.password.set @user.password
-    @sign_up_page.password_confirm.set @user.password
-    @sign_up_page.firstname.set @user.first_name
-    @sign_up_page.lastname.set @user.last_name
-    @sign_up_page.email.set @user.email
-    @sign_up_page.submit_btn.click
+    sign_up_user(@user)
 
     expect(@home_page.menu.logged_as.text).to include "Logged in as #{@user.user_name}"
   end
@@ -39,11 +31,7 @@ feature 'Authentication user', js: true do
 
     @home_page.menu.sigh_in_link.click
 
-    @sign_in_page = SignInPage.new
-
-    @sign_in_page.username.set credentials[:user_name]
-    @sign_in_page.password.set credentials[:password]
-    @sign_in_page.login_btn.click
+    sign_in_user(credentials[:user_name], credentials[:password])
 
     expect(@home_page.menu.logged_as.text).to include "Logged in as #{credentials[:user_name]}"
   end

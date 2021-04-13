@@ -3,9 +3,11 @@
 source 'http://rubygems.org/'
 
 gem 'capybara'
-gem 'pry', '~>0.11.3'
+gem 'dotenv'
+gem 'ffaker'
 gem 'reek'
 gem 'require_all'
+gem 'rest-client'
 gem 'rspec'
 gem 'rubocop'
 gem 'rubocop-rspec', require: false

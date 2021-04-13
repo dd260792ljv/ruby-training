@@ -3,6 +3,7 @@ detectors:
     exclude:
       - 'options'
       - 'User'
+      - 'api_headers'
   IrresponsibleModule:
     exclude:
       - 'HomePage'
@@ -10,10 +11,21 @@ detectors:
       - 'SignUpPage'
       - 'MenuSection'
       - 'User'
+      - 'FeatureHelper'
+      - 'MyPage'
+      - 'ApiWrapper'
   TooManyInstanceVariables:
     exclude:
       - 'User'
   UncommunicativeVariableName:
     exclude:
       - 'User'
+  TooManyStatements:
+    max_statements: 10
+  DuplicateMethodCall:
+    exclude:
+      - 'sign_up_user'
+  FeatureEnvy:
+    exclude:
+      - 'ApiWrapper'
 

@@ -1,7 +1,9 @@
 # frozen_string_literal: true
 
+require 'ffaker'
 require 'yaml'
 
+# This Class describes user object
 class User
   attr_reader :user_name, :password, :email, :first_name, :last_name
 
@@ -9,10 +11,10 @@ class User
     random = Time.now.to_i.to_s
 
     @user_name = "test#{random}"
-    @password = 'test1234'
-    @email = "#{user_name}@test.org"
-    @first_name = 'Test'
-    @last_name = 'User'
+    @password = FFaker::Internet.password
+    @email = FFaker::Internet.email
+    @first_name = FFaker::Name.first_name
+    @last_name = FFaker::Name.last_name
   end
 
   def save_to_file(file)
@@ -22,6 +24,6 @@ class User
   end
 
   def read_from_file(file)
-    YAML.safe_load(File.read(file))
+    YAML.safe_load(File.read(file), [Symbol])
   end
 end
