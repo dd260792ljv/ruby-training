@@ -2,7 +2,7 @@
 
 feature 'Authentication user', js: true do
   before(:all) do
-    @file = './spec/data/credentials.yaml'
+    @file = './spec/test_data/credentials.yaml'
     @user = User.new
     @user.save_to_file(@file)
   end
