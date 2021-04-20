@@ -11,3 +11,6 @@ Style/MixinUsage:
 
 Metrics/AbcSize:
   Enabled: false
+
+Documentation:
+  Enabled: false
