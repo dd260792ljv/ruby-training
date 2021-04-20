@@ -3,6 +3,7 @@
 source 'http://rubygems.org/'
 
 gem 'capybara'
+gem 'cucumber'
 gem 'dotenv'
 gem 'ffaker'
 gem 'reek'
